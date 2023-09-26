@@ -6,7 +6,6 @@ config_file = open('config.json', encoding="utf8")
 config = json.load(config_file)
 
 
-
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
@@ -14,9 +13,8 @@ intents.members = True
 client = discord.Client(intents=intents)
 
 
-server_id = config['server_id'] # your server id for check user
-text_channel = config['text_channel_id'] # text channel to send message
-
+server_id = config['server_id']  # your server id for check user
+text_channel = config['text_channel_id']  # text channel to send message
 
 
 @client.event
@@ -47,12 +45,11 @@ async def on_message(message):
             embed.description = f" \n `author:` [{message.author}]({dm_link})"
             
             # send member message in text channel
-            await channel.send( f" `content:` {message.content} ", embed=embed)
+            await channel.send(f" `content:` {message.content} ", embed=embed)
             # send waiting message to members 
             await message.reply(config['reply_message'])
             
         else:
             await message.reply(config['not_joined_server'])
-
 
 client.run(config['bot_token'])
